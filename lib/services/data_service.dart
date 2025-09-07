@@ -19,41 +19,42 @@ class DataService {
     } catch (e) {
       // If loading fails, create a fallback data structure
       _websiteData = WebsiteData(
-        metadata: WebsiteMetadata(
-          domain: 'example.com',
-          baseUrl: 'https://example.com/',
-          totalPages: 1,
-          totalAssets: 0,
-          crawledAt: DateTime.now().toIso8601String(),
-          title: 'Example Domain',
-          description: 'This domain is for use in illustrative examples',
-          keywords: '',
-        ),
+        domain: 'example.com',
+        originalUrl: 'https://example.com/',
+        crawledAt: DateTime.now(),
+        title: 'Example Domain',
+        description: 'This domain is for use in illustrative examples',
+        keywords: '',
         pages: [
-          WebsitePage(
+          PageData(
             url: 'https://example.com/',
+            path: '/',
             title: 'Example Domain',
-            content: [
-              ContentBlock(
-                type: 'heading',
-                level: 1,
-                text: 'Example Domain',
-              ),
-              ContentBlock(
-                type: 'paragraph',
-                text: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
-              ),
-              ContentBlock(
-                type: 'paragraph',
-                text: 'More information...',
-              ),
-            ],
-            images: [],
-            links: [],
+            description: 'This domain is for use in illustrative examples',
+            content: PageContentData(
+              headings: [
+                HeadingData(text: 'Example Domain', level: 1),
+              ],
+              paragraphs: [
+                ParagraphData(
+                  text: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
+                  classes: [],
+                ),
+                ParagraphData(
+                  text: 'More information...',
+                  classes: [],
+                ),
+              ],
+              images: [],
+              links: [],
+              lists: [],
+              tables: [],
+              forms: [],
+              contentBlocks: [],
+            ),
           ),
         ],
         assets: [],
-        navigation: [],
       );
       return _websiteData!;
     }
