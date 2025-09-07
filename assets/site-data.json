@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "domain": "example.com",
+    "baseUrl": "https://example.com/",
+    "totalPages": 1,
+    "totalAssets": 0,
+    "crawledAt": "2025-09-07T14:41:08.074Z",
+    "title": "Example Domain",
+    "description": "",
+    "keywords": ""
+  },
+  "pages": [
+    {
+      "url": "https://example.com",
+      "path": "index.html",
+      "title": "Example Domain",
+      "description": "",
+      "keywords": "",
+      "content": {
+        "headings": [
+          {
+            "level": 1,
+            "text": "Example Domain",
+            "id": ""
+          }
+        ],
+        "paragraphs": [
+          "This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission.",
+          "More information..."
+        ],
+        "images": [],
+        "links": [
+          {
+            "href": "https://www.iana.org/domains/example",
+            "text": "More information...",
+            "title": "",
+            "isExternal": true
+          }
+        ],
+        "lists": [],
+        "tables": [],
+        "forms": [],
+        "contentBlocks": []
+      }
+    }
+  ],
+  "assets": [],
+  "navigation": [
+    {
+      "title": "Example Domain",
+      "path": "index.html",
+      "originalUrl": "https://example.com"
+    }
+  ]
+}
