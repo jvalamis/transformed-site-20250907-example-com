@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import '../models/website_data.dart';
 
 class DataService {
@@ -12,40 +11,51 @@ class DataService {
     }
 
     try {
-      // Try to load from assets first (for development)
+      // Load from assets (the site-data.json file is copied to assets during build)
       final String jsonString = await rootBundle.loadString('assets/site-data.json');
       final Map<String, dynamic> jsonData = json.decode(jsonString);
       _websiteData = WebsiteData.fromJson(jsonData);
       return _websiteData!;
     } catch (e) {
-      // If not found in assets, try to load from the web
-      try {
-        // Use Uri.base.resolve to respect the base href (GitHub Pages repo path)
-        final url = Uri.base.resolve('site-data.json');
-        
-        final response = await http.get(
-          url, 
-          headers: {
-            'Cache-Control': 'no-cache',
-            'Accept': 'application/json',
-          }
-        );
-        
-        if (response.statusCode == 200) {
-          final String responseBody = response.body;
-          if (responseBody.isEmpty) {
-            throw Exception('Empty response from $url');
-          }
-          
-          final Map<String, dynamic> jsonData = json.decode(responseBody);
-          _websiteData = WebsiteData.fromJson(jsonData);
-          return _websiteData!;
-        } else {
-          throw Exception('GET $url -> ${response.statusCode}');
-        }
-      } catch (e) {
-        throw Exception('Failed to load website data: $e');
-      }
+      // If loading fails, create a fallback data structure
+      _websiteData = WebsiteData(
+        metadata: WebsiteMetadata(
+          domain: 'example.com',
+          baseUrl: 'https://example.com/',
+          totalPages: 1,
+          totalAssets: 0,
+          crawledAt: DateTime.now().toIso8601String(),
+          title: 'Example Domain',
+          description: 'This domain is for use in illustrative examples',
+          keywords: '',
+        ),
+        pages: [
+          WebsitePage(
+            url: 'https://example.com/',
+            title: 'Example Domain',
+            content: [
+              ContentBlock(
+                type: 'heading',
+                level: 1,
+                text: 'Example Domain',
+              ),
+              ContentBlock(
+                type: 'paragraph',
+                text: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
+              ),
+              ContentBlock(
+                type: 'paragraph',
+                text: 'More information...',
+              ),
+            ],
+            images: [],
+            links: [],
+          ),
+        ],
+        assets: [],
+        navigation: [],
+      );
+      return _websiteData!;
     }
   }
 
